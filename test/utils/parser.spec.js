@@ -8,59 +8,99 @@ describe("Parser", ()  => {
         const html = fs.readFileSync("./test/test.html", "utf8");
          parser = new Parser(html);
     }); 
+// ------------------    question    ------------------
+
+it ('Deberia conseguir la pregunta de la página de stack overflow', () => {
+    const question = parser.getQuestionTitle();
+    console.log (question); 
+    expect(question).toBe("phpMyAdmin - Error > Incorrect format parameter?");
+});
 
 
-    it ('Deberia conseguir la pregunta de la página de stack overflow', () => {
-        const title = parser.getTitle();
-        console.log (title); 
-        expect(title).toBe("How can I get query string values in JavaScript?");
-   });
+ it ('Deberia devolver la pregunta en formato DOM', () => {
+    const question = parser.getQuestionAsDOM();
+    console.log (question); 
+    expect(question.innerHTML).toContain("I have a WordPress production website"); // dentro del parentisis fatlaria un teexto q contenga del hmtl dentro de la question
+});
 
 
-   it ('Deberia conseguir la respuesta de las preguntas de página de stack overflow', () => {
-    const answer = parser.getAnswer();
+it ('Deberia devolver los votos de una pregunta', () => {
+    const question = parser.getQuestionAsDOM();
+    const votes = parser.getQuestionVote(question);
+    console.log (votes); 
+    expect(votes).toBe(264); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+});
+
+
+it ('Deberia devolver la fecha de la pregunta', () => {
+    const question = parser.getQuestionAsDOM();
+    const date = parser.getQuestionDateTime(question);
+    console.log (date); 
+    expect(date).toBe("Jun 4, 2018 at 23:15"); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+});
+    
+it ('Deberia devolver el usuario de la pregunta', () => {
+    const question = parser.getQuestionAsDOM();
+    const user = parser.getQuestionUser(question); 
+    console.log (user); 
+    expect(user).toBe("Henry"); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+});
+    
+
+
+// ------------------    answer ------------------
+
+it ('Deberia devolver un array de la respuestas en formato DOM', () => {
+    const answer = parser.getAnswersAsDOM();
     console.log (answer); 
-    expect(answer).toContain("Using Proxy() is faster than using Object.fromEntries() and better supported");
+    expect(answer[0].innerHTML).toContain("This issue is not because of corrupt database but rather the PHP upload size limit");
+});
+
+it ('Deberia devolver los votos de una respuesta', () => {
+    const answer = parser.getAnswerAsDOM();
+    const votes = parser.getAnswerVote(answer); 
+    console.log (answer);
+    console.log (votes);
+    expect(votes).toBe(642); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+});
+
+
+it ('Deberia devolver el usuario de la respuesta', () => {
+    const answer = parser.getAnswerAsDOM();
+    const user = parser.getAnswerUser(answer);
+    console.log (answer);
+    console.log (user);
+    expect(user).toBe("Pooja Mistry"); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
 });
 
 
 
-   it ('Deberia conseguir votos de la pregunta de stack overflow', () => {
-    const vote = parser.getVote();
-    console.log (vote); 
-    expect(vote).toBe("2694");
-    });
+it ('Deberia devolver la fecha de la respuesta', () => {
+    const answer = parser.getAnswerAsDOM();
+    const date = parser.getAnswerDateTime(answer);
+    console.log (answer);
+    console.log (date);
+    expect(date).toBe("Jun 7, 2018 at 16:58"); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+});
 
-/* 
+
+// -----------   links  -----------
 
 
-    it ('Deberia conseguir los links de la página', () => {
-    const links = parser.getLinks();
+it ('Deberia conseguir los linked de la página', () => {
+    const links = parser.getLinkslinked();
     console.log (links);
-    expect(links).toEqual(["wwww.google.com", "wwww.facebook.com"]);
-    });
+    expect(links).toEqual("/questions/1263680/maximum-execution-time-in-phpmyadmin?noredirect=1");
+});
 
- */
-
+it ('Deberia conseguir los links related de la página', () => {
+    const links = parser.getLinksRelated();
+    console.log (links);
+    expect(links).toEqual("/questions/356578/how-can-i-output-mysql-query-results-in-csv-format");
+});
 
     
-    /* it ('Deberia conseguir el título de la página', () => {
-         const title = parser.getTitle();
-         console.log (title); // para ver q te da el test del titulo
-         expect(title).toBe("Test");
-    });
-
-    it ('Deberia conseguir los links de la página', () => {
-        const links = parser.getLinks();
-        console.log (links);
-        expect(links).toEqual(["wwww.google.com", "wwww.facebook.com"]);
-    });
-
-    it('Deberia conseguir los parrafos de la página', () => {
-        const paragraphs = parser.getParagraphs();
-        console.log (paragraphs);
-        expect(paragraphs).toEqual(["Hello", "World"])
-    });
+    /* 
 
     it('Deberia conseguir los imagenes de la página', () => {
         const images = parser.getImages();
