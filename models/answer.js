@@ -1,6 +1,6 @@
 import mongoose from '../utils/mongoose.js';
 
-const AnswerSchema = new mongoose.Schema({
+const answerSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
@@ -10,11 +10,11 @@ const AnswerSchema = new mongoose.Schema({
         default: 0,
     },
     user:{
-        typeof: String,
+        type: String,
         required: false,
     },
     date:{
-        type: Date,
+        type: String,
         required: false,
     },
     question:{
@@ -24,6 +24,6 @@ const AnswerSchema = new mongoose.Schema({
     },
 
 });
-const Answer = mongoose.model("Answer", AnswerSchema);
+const Answer = mongoose.model("Answer", answerSchema);
 
 export default Answer;

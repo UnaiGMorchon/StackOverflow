@@ -18,11 +18,11 @@ const QuestionSchema = new mongoose.Schema({
         default: 0,
     },
     user:{
-        typeof: String,
+        type: String,
         required: false,
     },
     date:{
-        type: Date,
+        type: String,
         required: false,
     },
 });

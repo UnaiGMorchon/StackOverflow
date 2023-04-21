@@ -32,6 +32,38 @@ class Parser {
     }
 // -----------   question    -----------
 
+
+/**
+     * devuelve el elemento HTML que contiene la pregunta en la página web.
+     * @method
+     * @returns {string} devuelve el html que contiene la pregunta
+     */
+
+getQuestionAsDOM(){
+    return this.document.querySelector('.question');
+}
+
+/** 
+* Devuelve la pregunta completa titulo, votos, fecha y usuario  
+* @method    
+* @returns {string} - la pregunta    
+*/
+getQuestion(){
+    const question = this.getQuestionAsDOM();
+    const title = this.getQuestionTitle(question);
+    const votes = this.getQuestionVote(question);
+    const date = this.getQuestionDateTime(question);
+    const user = this.getQuestionUser(question);
+    return {
+        title,
+        question: question.outerHTML,
+        votes,
+        date,
+        user
+    }
+}
+
+
 /** 
     * Devuelve el termino de busqueda de la pregunta
     * @method    
@@ -70,32 +102,15 @@ class Parser {
         const user = element.querySelector(".post-signature.owner .d-none").textContent;
         return (user);
     }
-    getQuestionAsDOM(){
-        return this.document.querySelector('.question');
-    }
-
-/** 
-    * Devuelve la pregunta completa titulo, votos, fecha y usuario  
-    * @method    
-    * @returns {string} - la pregunta    
-    */
-   getQuestion(){
-        const title = this.getQuestionTitle(question);
-        const question = this.getQuestionAsDOM();
-        const votes = this.getQuestionVote(question);
-        const date = this.getQuestionDateTime(question);
-        const user = this.getQuestionUser(question);
-        return {
-            title,
-            question,
-            votes,
-            date,
-            user
-        }
-    }
+   
 
 // -----------   answer  -----------
-   
+  
+/**
+   * Obtiene todas las respuestas de la pagina
+   * @method
+   * @returns
+   */
 getAnswersAsDOM(){
     return Array.from(this.document.querySelectorAll('.answer'));
 }
@@ -110,8 +125,9 @@ getAnswers(){
     return answers.map((answer) => {
         const votes = this.getAnswerVote(answer);
         const date = this.getAnswerDateTime(answer);  
-        const user = this.getAnswertUser(answer);
+        const user = this.getAnswerUser(answer);
         return {
+            answers: answer.outerHTML,
             votes,
             date,
             user

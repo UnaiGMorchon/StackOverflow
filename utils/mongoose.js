@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const host = process.env.MONGO_HOST || "mongo-stack";
-const port = process.env.MONGO_PORT || 27017;
+const host = "localhost";
+const port = process.env.MONGO_PORT || 27020;
 const db = process.env.MONGO_DB || "stack";
 const MONGODB_URI = `mongodb://${host}:${port}/${db}`;
 

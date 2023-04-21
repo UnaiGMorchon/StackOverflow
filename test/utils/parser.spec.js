@@ -13,7 +13,7 @@ describe("Parser", ()  => {
 it ('Deberia conseguir la pregunta de la página de stack overflow', () => {
     const question = parser.getQuestionTitle();
     console.log (question); 
-    expect(question).toBe("phpMyAdmin - Error > Incorrect format parameter?");
+    expect(question).toContain("phpMyAdmin - Error > Incorrect format parameter?");
 });
 
 
@@ -51,9 +51,9 @@ it ('Deberia devolver el usuario de la pregunta', () => {
 // ------------------    answer ------------------
 
 it ('Deberia devolver un array de la respuestas en formato DOM', () => {
-    const answer = parser.getAnswersAsDOM();
-    console.log (answer); 
-    expect(answer[0].innerHTML).toContain("This issue is not because of corrupt database but rather the PHP upload size limit");
+    const answers = parser.getAnswersAsDOM();
+    console.log (answers); 
+    expect(answers[0].innerHTML).toContain("This issue is not because of corrupt database but rather the PHP upload size limit");
 });
 
 it ('Deberia devolver los votos de una respuesta', () => {

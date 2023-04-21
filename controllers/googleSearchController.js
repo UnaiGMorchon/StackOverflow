@@ -3,12 +3,12 @@ import Parser from "../utils/parser.js";
 
 
 async function searchLinks(query){
-    const encodedQuery = encodeURIComponent(query);
-    const url = `https://www.google.com/search?q=${encodedQuery}`;
-
     // scarper
     const scraper = new Scraper();
     await scraper.init();
+
+    const encodedQuery = encodeURIComponent(query);
+    const url = `https://www.google.com/search?q=${encodedQuery}`;
     const html = await scraper.getPageContent(url);
 
     //parser

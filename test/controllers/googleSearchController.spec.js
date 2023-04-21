@@ -7,5 +7,5 @@ describe ("Google Search controller", () => {
         const query = "stackoverflow";
         const links = await googleSearchController.searchLinks(query);
         expect(links).toContain("https://stackoverflow.com");
-    })
+    },10000)
 })

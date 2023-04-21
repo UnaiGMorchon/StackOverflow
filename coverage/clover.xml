@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1682072713088" clover="3.2.0">
-  <project timestamp="1682072713089" name="All files">
+<coverage generated="1682074771700" clover="3.2.0">
+  <project timestamp="1682074771700" name="All files">
     <metrics statements="58" coveredstatements="42" conditionals="8" coveredconditionals="4" methods="21" coveredmethods="18" elements="87" coveredelements="64" complexity="0" loc="58" ncloc="58" packages="2" files="3" classes="3"/>
     <package name="controllers">
       <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -62,7 +62,7 @@
         <line num="159" count="1" type="stmt"/>
         <line num="161" count="0" type="stmt"/>
         <line num="176" count="1" type="stmt"/>
-        <line num="177" count="112" type="stmt"/>
+        <line num="177" count="105" type="stmt"/>
       </file>
       <file name="scraper.js" path="/Users/unai/Desktop/bootcamp/Backend/StackOverflow/utils/scraper.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>

@@ -6,31 +6,37 @@ import Answer from "../models/answer.js";
 
 
 async function getContent(query){
-    const googleLinks = await googleSearchController.searchLinks(`stackoverflow" ${query}`);
-    const url = googleLinks.find((link) => link.includes("stackoverflow.com/q"))
-   
+    const googleLinks = await googleSearchController.searchLinks(`stackoverflow+ ${query}`);
+    const url = googleLinks.find((link) => link.includes("stackoverflow.com/question"))
+    console.log(url);
     const scraper = new Scraper();
     await scraper.init();
     const html = await scraper.getPageContent(url);
     const parser = new Parser(html);
-
+    
+    const title = parser.getQuestionTitle();
     const question = parser.getQuestion();
     const answers = parser.getAnswers()
 // creas para meter las variables que nos da la question
     const questionModel = new Question({
             query,
             title,
-            content: question.question, //post.post es el que tiene jon en su trabajo
-            votes: question.votes, //post.puntuacion esto es lo de jon
+            content: question.question, //
+            votes: question.votes, //
+            user: question.user,
+            date: question.date,
     })
 
     await questionModel.save();
 
     answers.forEach(async (answer) => {
     const answerModel= new Answer({
+        question: questionModel._id,
         content: answer.answer,
         votes: answer.votes,
-        question: questionModel._id,
+        date: answer.date,
+        user: answer.user,
+        
     })
     await answerModel.save();
 });
@@ -39,6 +45,7 @@ async function getContent(query){
 
     scraper.close();
     return {
+        title,
         question,
         answers,
  
