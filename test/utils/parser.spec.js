@@ -57,8 +57,8 @@ it ('Deberia devolver un array de la respuestas en formato DOM', () => {
 });
 
 it ('Deberia devolver los votos de una respuesta', () => {
-    const answer = parser.getAnswerAsDOM();
-    const votes = parser.getAnswerVote(answer); 
+    const answer = parser.getAnswersAsDOM();
+    const votes = parser.getAnswerVote(answer[0]); 
     console.log (answer);
     console.log (votes);
     expect(votes).toBe(642); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
@@ -66,8 +66,8 @@ it ('Deberia devolver los votos de una respuesta', () => {
 
 
 it ('Deberia devolver el usuario de la respuesta', () => {
-    const answer = parser.getAnswerAsDOM();
-    const user = parser.getAnswerUser(answer);
+    const answer = parser.getAnswersAsDOM();
+    const user = parser.getAnswerUser(answer[0]);
     console.log (answer);
     console.log (user);
     expect(user).toBe("Pooja Mistry"); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
@@ -76,8 +76,8 @@ it ('Deberia devolver el usuario de la respuesta', () => {
 
 
 it ('Deberia devolver la fecha de la respuesta', () => {
-    const answer = parser.getAnswerAsDOM();
-    const date = parser.getAnswerDateTime(answer);
+    const answer = parser.getAnswersAsDOM();
+    const date = parser.getAnswerDateTime(answer[0]);
     console.log (answer);
     console.log (date);
     expect(date).toBe("Jun 7, 2018 at 16:58"); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
@@ -87,7 +87,7 @@ it ('Deberia devolver la fecha de la respuesta', () => {
 // -----------   links  -----------
 
 
-it ('Deberia conseguir los linked de la página', () => {
+/* it ('Deberia conseguir los linked de la página', () => {
     const links = parser.getLinkslinked();
     console.log (links);
     expect(links).toEqual("/questions/1263680/maximum-execution-time-in-phpmyadmin?noredirect=1");
@@ -98,15 +98,7 @@ it ('Deberia conseguir los links related de la página', () => {
     console.log (links);
     expect(links).toEqual("/questions/356578/how-can-i-output-mysql-query-results-in-csv-format");
 });
-
-    
-    /* 
-
-    it('Deberia conseguir los imagenes de la página', () => {
-        const images = parser.getImages();
-        console.log (images);
-        expect(images).toEqual(["image1.png", "image2.png"]);
-    });
  */
+    
 
 });

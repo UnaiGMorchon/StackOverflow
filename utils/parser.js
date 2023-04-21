@@ -127,10 +127,12 @@ getAnswers(){
     */
     getAnswerDateTime(element){
         const dates = Array.from(element.querySelectorAll(".user-info.user-hover .relativetime"));
+        if (dates.length === 0)
+            return "";
         if(dates.length === 1) {
         return dates[0].textContent;
         }
-        return (dates[dates.length -1].textContent);
+        return dates[dates.length -1].textContent;
     }
 
 /** 
@@ -151,10 +153,12 @@ getAnswers(){
 
     getAnswerUser(element){
         const users = Array.from(element.querySelectorAll(".post-signature .d-none"));
+        if (users.length === 0)
+            return "";
         if(users.length === 1) {
         return users[0].textContent;
         }
-        return (users[users.length -1].textContent);
+        return users[users.length -1].textContent;
     }
 
     
@@ -175,27 +179,37 @@ getLinks(){
 
 
 
+
 /**    
 * Devuelve el array de Links de la zona linked list    
 * @method  
 * @returns {string[]} -Links de la página web   
-*/  
+
 getLinksLinked(){   
-    const links = Array.from(this.document.querySelectorAll(".module.sidebar-linked"));    
-   return links.map((link)=> link.href.replace(/\/$/, ''));
-   }  
+    const links = Array.from(this.document.querySelectorAll(".module.sidebar-linked .question-hyperlink"));    
+   return links.map((link)=> {
+    if(!link.includes("https")){
+        return "https://stackoverflow.com" + link.href;
+    }
+    return link.href;
+   });
+}
+*/  
 
 /**    
 * Devuelve el array de Links related    
 * @method  
 * @returns {string[]} -Links de la página web   
-*/  
-getLinksRelated(){   
-    const links = Array.from(this.document.querySelectorAll(".module.sidebar-related"));    
-   return links.map((link)=> link.href.replace(/\/$/, ''));
-   } 
 
+getLinksRelated(){   
+    const links = Array.from(this.document.querySelectorAll(".module.sidebar-related .question-hyperlink"));    
+    return links.map((link)=> {
+        if(!link.includes("https")){
+            return "https://stackoverflow.com" + link.href;
+        }
+        return link.href;
+       });
+    }*/  
 }
 
 export default Parser;
-  

@@ -1,7 +1,8 @@
 import Scraper from "../utils/scraper.js";
 import Parser from "../utils/parser.js";
 import googleSearchController from "./googleSearchController.js";
-
+import Question from "../models/question.js";
+import Answer from "../models/answer.js";
 
 
 async function getContent(query){
@@ -13,25 +14,34 @@ async function getContent(query){
     const html = await scraper.getPageContent(url);
     const parser = new Parser(html);
 
-    const questionTitle = parser.getQuestionTitle();
-    const questionVote = parser.getQuestionVote();
-    const questionDate = parser.getQuestionDateTime();
-    const questionUser = parser.getQuestionUser();
+    const question = parser.getQuestion();
     const answers = parser.getAnswers()
-    const answerVotes = this.getAnswerVote();
-    const answerDate = this.getAnswerDateTime();  
-    const answerUser = this.getAnswertUser();
+// creas para meter las variables que nos da la question
+    const questionModel = new Question({
+            query,
+            title,
+            content: question.question, //post.post es el que tiene jon en su trabajo
+            votes: question.votes, //post.puntuacion esto es lo de jon
+    })
+
+    await questionModel.save();
+
+    answers.forEach(async (answer) => {
+    const answerModel= new Answer({
+        content: answer.answer,
+        votes: answer.votes,
+        question: questionModel._id,
+    })
+    await answerModel.save();
+});
+
+
 
     scraper.close();
     return {
-        questionTitle ,
-        questionVote,
-        questionDate,
-        questionUser,
+        question,
         answers,
-        answerVotes,
-        answerDate,
-        answerUser  
+ 
     }
 
 
