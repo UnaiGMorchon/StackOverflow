@@ -1,5 +1,11 @@
 import stackoverflowController from "../../controllers/stackoverflowController";
 
+
+/**
+ * Controlador de un grupo de pruebas unitarias que tienen qu contener el texto concreto para que sea ok al test
+ * @class
+ */
+
 describe ("stackoverflow controller", () => {
     
     it('Deberia conseguir el contenido de una pagina de stackoverflow', async()=> {

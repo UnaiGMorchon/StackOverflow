@@ -106,11 +106,12 @@ getQuestion(){
 
 // -----------   answer  -----------
   
-/**
+    /**
    * Obtiene todas las respuestas de la pagina
    * @method
-   * @returns
+   * @returns {string[]}
    */
+
 getAnswersAsDOM(){
     return Array.from(this.document.querySelectorAll('.answer'));
 }

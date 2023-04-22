@@ -4,6 +4,11 @@ import googleSearchController from "./googleSearchController.js";
 import Question from "../models/question.js";
 import Answer from "../models/answer.js";
 
+/**
+ *  Obtiene el contenido de la pagina
+ * @param {string} query - query de la pagina
+ * @returns {object} - objeto con los datos de la pagina
+ */
 
 async function getContent(query){
     const googleLinks = await googleSearchController.searchLinks(`stackoverflow+ ${query}`);
@@ -13,7 +18,7 @@ async function getContent(query){
     await scraper.init();
     const html = await scraper.getPageContent(url);
     const parser = new Parser(html);
-    
+    if(!query ) query = "undefined"
     const title = parser.getQuestionTitle();
     const question = parser.getQuestion();
     const answers = parser.getAnswers()
@@ -25,7 +30,7 @@ async function getContent(query){
             votes: question.votes, //
             user: question.user,
             date: question.date,
-    })
+    });
 
     await questionModel.save();
 
@@ -37,7 +42,7 @@ async function getContent(query){
         date: answer.date,
         user: answer.user,
         
-    })
+    });
     await answerModel.save();
 });
 
@@ -47,8 +52,7 @@ async function getContent(query){
     return {
         title,
         question,
-        answers,
- 
+        answers
     }
 
 

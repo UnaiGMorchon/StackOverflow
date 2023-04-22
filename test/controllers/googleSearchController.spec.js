@@ -1,5 +1,10 @@
 import googleSearchController from "../../controllers/googleSearchController";
 
+/**
+* se espera que la función pueda buscar en Google los enlaces correspondientes a una consulta determinada y que el enlace a la página de StackOverflow se encuentre entre ellos.
+* que contenga el enlace a la página de StackOverflow. Configurada para finalizar después de 10000
+* @class
+ */
 
 describe ("Google Search controller", () => {
     
