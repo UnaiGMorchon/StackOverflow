@@ -34,9 +34,9 @@ class Parser {
 
 
 /**
-     * devuelve el elemento HTML que contiene la pregunta en la página web.
+     * Devuelve el elemento HTML que contiene la pregunta en la página web como objeto en fromato DOM.
      * @method
-     * @returns {string} devuelve el html que contiene la pregunta
+     * @returns {Element} Un objeto DOM con el contenido de la pregunta.
      */
 
 getQuestionAsDOM(){
@@ -44,9 +44,14 @@ getQuestionAsDOM(){
 }
 
 /** 
-* Devuelve la pregunta completa titulo, votos, fecha y usuario  
+* Devuelve un objeto con informacion de la pregunta completa titulo, votos, fecha y usuario en formato HTML. 
 * @method    
-* @returns {string} - la pregunta    
+* @returns {Object} - la pregunta
+ *   @property {string} title - El título de la pregunta.
+ *   @property {string} question - El contenido de la pregunta en formato HTML.
+ *   @property {number} votes - El número de votos de la pregunta.
+ *   @property {Date} date - La fecha y hora en que se hizo la pregunta.
+ *   @property {string} user - El nombre de usuario que hizo la pregunta.    
 */
 getQuestion(){
     const question = this.getQuestionAsDOM();
@@ -65,9 +70,9 @@ getQuestion(){
 
 
 /** 
-    * Devuelve el termino de busqueda de la pregunta
+    * Devuelve el termino de busqueda de la pregunta (el título de la pregunta).
     * @method    
-    * @returns {string} - titulo de la pregunta    
+    * @returns {string} - titulo de la pregunta como una cadena de texto   
     */
     getQuestionTitle() {
         return this.document.querySelector('h1').textContent.trim(); 
@@ -76,16 +81,18 @@ getQuestion(){
  /** 
     * Devuelve el numero de votos de la pregunta   
     * @method    
-    * @returns {number} - votos de la pregunta    
+    * @param {Element} element - El elemento DOM que contiene la pregunta.
+    * @returns {number} El número de votos de la pregunta como un número entero.   
     */
     getQuestionVote(element){
         const votes =  element.querySelector('.js-vote-count').textContent;
         return parseInt(votes);
     }
 /** 
-    * Devuelve fecha de creacion de la pregunta   
-    * @method    
-    * @returns {string} - fecha de creacion de la pregunta    
+    * Devuelve la fecha y hora en que se hizo la pregunta   
+    * @method     
+    * @param {Element} element - El elemento DOM que contiene la pregunta.
+    * @returns {string} La fecha y hora en que se hizo la pregunta como una cadena de texto.
     */
 
     getQuestionDateTime(element){
@@ -95,7 +102,8 @@ getQuestion(){
 /** 
     * Devuelve el nombre del usuario que hizo de la pregunta   
     * @method    
-    * @returns {string} - nombre del usuario que hizo de la pregunta    
+    * @param {Element} element - El elemento DOM que contiene la pregunta.
+    * @returns {string} El nombre del usuario que hizo la pregunta como una cadena de texto. 
     */
 
     getQuestionUser(element){
@@ -107,19 +115,19 @@ getQuestion(){
 // -----------   answer  -----------
   
     /**
-   * Obtiene todas las respuestas de la pagina
-   * @method
-   * @returns {string[]}
-   */
+   * Devuelve un array con todos los elementos DOM que contienen las respuestas a la pregunta.
+ * @method
+ * @returns {Element[]} Un array con todos los elementos DOM que contienen las respuestas a la pregunta.
+ */
 
 getAnswersAsDOM(){
     return Array.from(this.document.querySelectorAll('.answer'));
 }
 
 /** 
-    * Devuelve un array con todas las respuestas con toda la informacion votos, fecha y votos
-    * @method    
-    * @returns {string[]} - de respuestas    
+    * Devuelve un array con objetos que contienen información sobre cada respuesta a la pregunta, incluyendo el contenido de la respuesta, el número de votos, la fecha y hora en que se hizo, y el usuario que la hizo.
+     * @method    
+     @returns {Object[]} Un array con objetos que contienen información sobre cada respuesta a la pregunta.    
     */
 getAnswers(){
     const answers = this.getAnswersAsDOM();
@@ -138,9 +146,14 @@ getAnswers(){
 
 
 /** 
-    * Devuelve un array con las dos fecha y selecciona la segunda fecha que es la del usuario que creo la respuesta
+    * Devuelve la fecha y hora en que se hizo la respuesta.
+    *
+    * Si hay varias fechas en la respuesta (por ejemplo, si se editó), devuelve la más reciente.
+    *
+    * Si no hay ninguna fecha disponible, devuelve una cadena vacía.
     * @method    
-    * @returns {string[]} - fecha de respuestas    
+    * @param {Element} element - El elemento DOM que contiene la respuesta.
+    * @returns {string[]} La fecha y hora en que se hizo la respuesta como una cadena de texto.  
     */
     getAnswerDateTime(element){
         const dates = Array.from(element.querySelectorAll(".user-info.user-hover .relativetime"));
@@ -153,9 +166,10 @@ getAnswers(){
     }
 
 /** 
-    * Devuelve los votos que tiene cada respuesta
+    * Devuelve el número de votos que tiene la respuesta.
     * @method    
-    * @returns {string} - votos de las respuestas    
+    * @param {Element} element - El elemento DOM que contiene la respuesta.
+    * @returns {number} El número de votos que tiene la respuesta.  
     */
     getAnswerVote(element){
         const votes =  element.querySelector('.js-vote-count').textContent;
@@ -163,9 +177,14 @@ getAnswers(){
     }
 
 /** 
-    * Devuelve un array con los usuarios y selecciona el segundo que es el usuario que creo la respuesta
-    * @method    
-    * @returns {string[]} - fecha de respuestas    
+    * Devuelve el nombre de usuario del autor de la respuesta.
+    *
+    * Si hay varios nombres de usuario en la respuesta (por ejemplo, si se editó), devuelve el más reciente.
+    *
+    * Si no hay ningún nombre de usuario disponible, devuelve una cadena vacía.
+    * @method
+    * @param {Element} element - El elemento DOM que contiene la respuesta.
+    * @returns {string[]} El nombre de usuario del autor de la respuesta como una cadena de texto. 
     */
 
     getAnswerUser(element){
@@ -184,10 +203,11 @@ getAnswers(){
    
 
 /**    
-* Devuelve el array de Links    
+* Devuelve una lista de enlaces (URL) presentes en el documento.
+*    
 * @method  
-* @returns {string[]} -Links de la página web   
-*/  
+* @returns {string[]} Una lista de enlaces (URL) como cadenas de texto.
+*/
     
 getLinks(){   
     const links = Array.from(this.document.querySelectorAll("a"));    
@@ -198,35 +218,38 @@ getLinks(){
 
 
 /**    
-* Devuelve el array de Links de la zona linked list    
-* @method  
-* @returns {string[]} -Links de la página web   
-
+* Devuelve una lista de enlaces (URL) a preguntas relacionadas presentes en la barra lateral.
+ *
+ * Si una URL no incluye el prefijo "https", se agrega el prefijo "https://stackoverflow.com".
+ *
+ * @method
+ * @returns {string[]} Una lista de enlaces (URL) como cadenas de texto.
+ */
 getLinksLinked(){   
     const links = Array.from(this.document.querySelectorAll(".module.sidebar-linked .question-hyperlink"));    
    return links.map((link)=> {
-    if(!link.includes("https")){
-        return "https://stackoverflow.com" + link.href;
+    if(!link.href.includes("https")){
+        return  "https://stackoverflow.com" + link.href;
     }
     return link.href;
    });
-}
-*/  
+} 
 
 /**    
-* Devuelve el array de Links related    
-* @method  
-* @returns {string[]} -Links de la página web   
-
+* Obtiene los enlaces relacionados de la página actual y los devuelve como un array de strings.
+ * Si los enlaces no incluyen "https", se les añade el prefijo "https://stackoverflow.com".
+ * @method
+ * @returns {string[]} - Array con los enlaces relacionados.
+ */   
 getLinksRelated(){   
     const links = Array.from(this.document.querySelectorAll(".module.sidebar-related .question-hyperlink"));    
     return links.map((link)=> {
-        if(!link.includes("https")){
+        if(!link.href.includes("https")){
             return "https://stackoverflow.com" + link.href;
         }
         return link.href;
        });
-    }*/  
+    }
 }
 
 export default Parser;

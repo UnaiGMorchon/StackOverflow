@@ -5,11 +5,10 @@ import Question from "../models/question.js";
 import Answer from "../models/answer.js";
 
 /**
- *  Obtiene el contenido de la pagina
- * @param {string} query - query de la pagina
- * @returns {object} - objeto con los datos de la pagina
+ * Obtiene el contenido de una pregunta de StackOverflow dada una búsqueda
+ * @param {string} query - La búsqueda a realizar en StackOverflow
+ * @returns {string[]} Un objeto que contiene la información de la pregunta y sus respuestas de la página de Stack Overflow relacionado con la consulta dada.
  */
-
 async function getContent(query){
     const googleLinks = await googleSearchController.searchLinks(`stackoverflow+ ${query}`);
     const url = googleLinks.find((link) => link.includes("stackoverflow.com/question"))
@@ -22,7 +21,9 @@ async function getContent(query){
     const title = parser.getQuestionTitle();
     const question = parser.getQuestion();
     const answers = parser.getAnswers()
-// creas para meter las variables que nos da la question
+    const linksLinked = parser.getLinksLinked();
+    const linksRelated = parser.getLinksRelated();
+// Crea un modelo de pregunta para almacenar la información
     const questionModel = new Question({
             query,
             title,
@@ -33,7 +34,7 @@ async function getContent(query){
     });
 
     await questionModel.save();
-
+// Crea un modelo de respuesta para cada respuesta obtenida y lo guarda en la base de datos
     answers.forEach(async (answer) => {
     const answerModel= new Answer({
         question: questionModel._id,
@@ -52,7 +53,9 @@ async function getContent(query){
     return {
         title,
         question,
-        answers
+        answers,
+        linksRelated,
+        linksLinked
     }
 
 

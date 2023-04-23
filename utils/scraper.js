@@ -29,9 +29,10 @@ class Scraper {
     }
 
     /** 
-     * Obtiene el contenido de una pagina
+     * Navega a una URL y devuelve el contenido de la página.
      * @method
-     * @param {string} url - url de la pagina
+     * @param {string} url - La URL de la página que se va a visitar.
+     * @returns {string} - Una promesa que se resuelve con el contenido de la página.
     */
     async getPageContent(url){
         await this.page.goto(url);
@@ -40,7 +41,7 @@ class Scraper {
     /**
      * Cierra el navegador
      * @method
-     * @returns {void}s
+     * @returns {void}
      */
     async close(){
         await this.browser.close();

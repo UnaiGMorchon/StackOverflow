@@ -7,6 +7,18 @@ import mongoose from '../utils/mongoose.js';
 * @class
 */
 
+
+/**
+ * Esquema para una pregunta
+ * @typedef {Object} QuestionSchema
+ * @property {string} query - Consulta de la pregunta
+ * @property {string} title - Título de la pregunta
+ * @property {string} content - Contenido de la pregunta
+ * @property {number} votes - Número de votos de la pregunta
+ * @property {string} user - Usuario que hizo la pregunta
+ * @property {string} date - Fecha de la pregunta
+ */
+
 const QuestionSchema = new mongoose.Schema({
     query:{
         type: String,
@@ -33,6 +45,12 @@ const QuestionSchema = new mongoose.Schema({
         required: false,
     },
 });
+
+
+/**
+ * Modelo para una pregunta
+ * @type {QuestionModel}
+ */
 const Question = mongoose.model("Question", QuestionSchema);
 
 export default Question;

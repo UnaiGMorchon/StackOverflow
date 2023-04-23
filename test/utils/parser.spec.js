@@ -1,16 +1,23 @@
 import Parser from "../../utils/parser.js"; 
 import fs from "fs";
 /**
+ * 
+ * Clase para realizar el parsing de datos de una página web
  * Crea un grupo de pruebas unitarias describe es una funcion de jest que agrupa pruebas relacionadas
  * @class
  */
 
 describe("Parser", ()  => { 
   let parser;
+  /**
+    * Configuración previa a las pruebas unitarias.
+    *@function
+    */
     beforeAll(() => {
     /**
-     * para leer el archivo HTML de prueba y la clase Parser para analizar el contenido HTML.
+     * Para leer el archivo HTML de prueba y la clase Parser para analizar el contenido HTML.
      * @method
+     * @returns {html} - Resuelve una vez que el archivo se ha leído y se ha creado el objeto Parser.
      */
         const html = fs.readFileSync("./test/test.html", "utf8");
          parser = new Parser(html);
@@ -20,7 +27,7 @@ describe("Parser", ()  => {
     /**
      * Test de question title, devuelve correctamente el título de la pregunta de la página web de Stack Overflow específica.
      * @method
-     * @returns {sting}
+     * @returns {sting}  El título de la pregunta actual.
      */
 
 it ('Deberia conseguir la pregunta de la página de stack overflow', () => {
@@ -30,9 +37,9 @@ it ('Deberia conseguir la pregunta de la página de stack overflow', () => {
 });
 
     /** 
-    * Test de question, devuelva la pregunta en formato DOM (Document Object Model) y que el texto contenido en la pregunta contenga cierta cadena de texto, de la página web de Stack Overflow específica.
+    * Test de question, devuelva la pregunta en formato DOM (Document Object Model) y que el texto contenido en la pregunta contenga una cadena de texto, de la página web de Stack Overflow específica.
     * @method    
-    * @returns {string} - la pregunta    
+    * @returns {HTMLElement} - la pregunta actual como un objeto DOM    
     */
  it ('Deberia devolver la pregunta en formato DOM', () => {
     const question = parser.getQuestionAsDOM();
@@ -43,39 +50,42 @@ it ('Deberia conseguir la pregunta de la página de stack overflow', () => {
 /** 
 * Test de question, extrae el número de votos de una pregunta en formato DOM.
 * @method    
-* @returns {string} - los votos de la pregunta    
+* @param {HTMLElement} - El objeto DOM que representa la pregunta de Stack Overflow.
+* @returns {number} El número de votos de la pregunta.    
 */
 it ('Deberia devolver los votos de una pregunta', () => {
     const question = parser.getQuestionAsDOM();
     const votes = parser.getQuestionVote(question);
     console.log (votes); 
-    expect(votes).toBe(264); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+    expect(votes).toBe(264); 
 });
 
 
 /** 
-* Test de question, extrae la fecha de una pregunta en formato DOM.
+* Test de question, extrae la fecha y hora de publicación de una pregunta en formato DOM.
 * @method    
-* @returns {string} - la fecha de la pregunta    
+* @param {HTMLElement}- El objeto DOM que representa la pregunta de Stack Overflow.
+* @returns {string} La fecha y hora de publicación de la pregunta en formato "MMM D, YYYY at H:mm".  
 */
 it ('Deberia devolver la fecha de la pregunta', () => {
     const question = parser.getQuestionAsDOM();
     const date = parser.getQuestionDateTime(question);
     console.log (date); 
-    expect(date).toBe("Jun 4, 2018 at 23:15"); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+    expect(date).toBe("Jun 4, 2018 at 23:15"); 
 });
     
 
 /** 
 * Test de question, extrae el usuario de una pregunta en formato DOM.
 * @method    
-* @returns {string} - el usuario de la pregunta    
+* @param {HTMLElement}- El objeto DOM que representa la pregunta de Stack Overflow.
+ * @returns {string} El nombre de usuario del autor de la pregunta.
 */
 it ('Deberia devolver el usuario de la pregunta', () => {
     const question = parser.getQuestionAsDOM();
     const user = parser.getQuestionUser(question); 
     console.log (user); 
-    expect(user).toBe("Henry"); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+    expect(user).toBe("Henry"); 
 });
     
 
@@ -85,9 +95,9 @@ it ('Deberia devolver el usuario de la pregunta', () => {
 
 
  /** 
-    * Test de answers, devuelva array de respuestas en formato DOM (Document Object Model) y que el texto contenido en la respuesta contenga cierta cadena de texto, de la página web de Stack Overflow específica.
+    * Test de answers, devuelva array de respuestas en formato DOM (Document Object Model) que representan las respuestas de una pregunta en cadena de texto, de la página web de Stack Overflow específica.
     * @method    
-    * @returns {string[]} - la pregunta    
+    * @returns {HTMLElement[]} - Un array de objetos DOM que representan las respuestas de la pregunta.  
     */
 it ('Deberia devolver un array de la respuestas en formato DOM', () => {
     const answers = parser.getAnswersAsDOM();
@@ -97,30 +107,33 @@ it ('Deberia devolver un array de la respuestas en formato DOM', () => {
 
 /** 
 * Test de answers, extrae array de el número de votos de las respuestas en formato DOM.
-* @method    
-* @returns {string[]} - los votos de la respuesta    
+* @method   
+* @param {HTMLElement} answer - El objeto DOM que representa la respuesta de Stack Overflow. 
+* @returns {Number[]} Los votos de la respuesta.   
 */
 it ('Deberia devolver los votos de una respuesta', () => {
     const answer = parser.getAnswersAsDOM();
     const votes = parser.getAnswerVote(answer[0]); 
-    expect(votes).toBe(642); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+    expect(votes).toBe(642); 
 });
 
 /** 
 * Test de answers, extrae array de usuarios de las respuestas en formato DOM.
-* @method    
-* @returns {string[]} - los usuarios de la respuesta    
+* @method 
+* @param {HTMLElement} answer - El objeto DOM que representa la respuesta de Stack Overflow.   
+* @returns {string[]} - los usuarios que publicaron en la respuestas  
 */
 it ('Deberia devolver el usuario de la respuesta', () => {
     const answer = parser.getAnswersAsDOM();
     const user = parser.getAnswerUser(answer[0]);
-    expect(user).toBe("Pooja Mistry"); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+    expect(user).toBe("Pooja Mistry"); 
 });
 
 
 /** 
-* Test de answers, extrae array las fechas de las respuestas en formato DOM.
+* Test de answers, extrae array las fechas y hora en que se publicó las respuestas en formato DOM.
 * @method    
+* @param {HTMLElement} answer - El objeto DOM que representa la respuesta de Stack Overflow.
 * @returns {string[]} - los usuarios de la respuesta    
 */
 it ('Deberia devolver la fecha de la respuesta', () => {
@@ -128,25 +141,34 @@ it ('Deberia devolver la fecha de la respuesta', () => {
     const date = parser.getAnswerDateTime(answer[0]);
     console.log (answer);
     console.log (date);
-    expect(date).toBe("Jun 7, 2018 at 16:58"); // dentro del parentisis faltaria un texto q contenga del html dentro de la question
+    expect(date).toBe("Jun 7, 2018 at 16:58"); 
 });
 
 
 // -----------   links  -----------
 
-
-/* it ('Deberia conseguir los linked de la página', () => {
+/**
+ * Obtiene los enlaces linked de la página actual en Stack Overflow.
+ *
+ * @returns {String[]} Una matriz de cadenas que representan los enlaces relacionados.
+ */
+it ('Deberia conseguir los linked de la página', () => {
     const links = parser.getLinkslinked();
     console.log (links);
     expect(links).toEqual("/questions/1263680/maximum-execution-time-in-phpmyadmin?noredirect=1");
 });
 
+/**
+ * Obtiene los enlaces relacionados de la página actual en Stack Overflow.
+ *
+ * @returns {String[]} Una matriz de cadenas que representan los enlaces relacionados.
+ */
 it ('Deberia conseguir los links related de la página', () => {
     const links = parser.getLinksRelated();
     console.log (links);
     expect(links).toEqual("/questions/356578/how-can-i-output-mysql-query-results-in-csv-format");
 });
- */
+
     
 
 });
