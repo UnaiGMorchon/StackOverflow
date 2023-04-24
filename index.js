@@ -1,16 +1,34 @@
 import express from "express";
 import stackOverFlowController from "./controllers/stackoverflowController.js";
+import path  from "path";
 
 const app = express();
+
+/**
+ * Ruta para la página principal para hacer la búsqueda.
+ * @access Public
+ * @function
+ * @returns {void}
+ */
+
+app.get("/", async (req, res) => {
+    try{
+    const _dirname = path.resolve();
+    res.sendFile(_dirname + "/index.html");
+    }
+    catch (error){
+        console.log(error.message);
+        res.status(500).send("ha habido un error");
+    }
+});
+
 /**
  * Get stackoverflow controller
- * 
  * @access Public
  * @returns {string} - html
  */
 
 app.get("/search", async (req, res) =>{
-    try{
     const query = req.query.q; // para elgir la palabra q quieres usar 
     const {title,question,answers} = await stackOverFlowController.getContent(query);
     // const data = await stackOverFlowController.getContent(query);
@@ -31,16 +49,11 @@ app.get("/search", async (req, res) =>{
             `).join("")} </div>
     `);
     // res.json({ title, question, answers }); // con este codigo la daria en json como api.
-}
-    catch (error){
-        // throw new Error(error);
-        res.status(500).send("ha habido un error");
-    }
 
 });
 
 app.listen(3999,() =>{
-    console.log("server started on port 3000");
+    console.log("server started on port 3999");
     
 });
 

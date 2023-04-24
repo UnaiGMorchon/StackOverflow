@@ -20,7 +20,7 @@ class Parser {
         this.loadDocument();
     }
     /**
-     * Carga el html en un objeto de tipo document 
+     * Carga el html en un objeto de tipo document DOM.
      * @method
      * @private
      * @returns {void} devuelve un string vacio
