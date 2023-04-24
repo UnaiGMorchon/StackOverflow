@@ -4,12 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador Stackoverflow</title>
+    <title>Buscador en Stackoverflow</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            color: #3f3f3f;
+        }
+        form {
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            padding: 12px;
+            width: 70%;
+            border: none;
+            border-radius: 8px;
+            margin-right: 5px;
+            font-size: 16px;
+        }
+        button[type="submit"] {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #0077cc;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #005fa3;
+        }
+    </style>
+
 </head>
 <body>
-    <h1>Stackoverflow</h1>
+    <h1>Buscador Stackoverflow</h1>
     <form action="/search" method="get">
-        <input type="text", name="query", id="query", placeholder="Buscar error">
+        <input type="text", name="query", id="query", placeholder="¿Error o dudas en tu código?">
         <button type="submit" id="btn" >Buscar</button>
     </form>
 </body>
