@@ -41,6 +41,9 @@ describe ("stackoverflow controller", () => {
         expect(answerVotes[0].votes).toBe(642);
         expect(answerDate[0].date).toBe('Jun 7, 2018 at 16:58');
         expect(answerUser[0].user).toBe('Pooja Mistry');
+        // expect(answerlinksLinked[0].linksLinked).toBe('/questions/1263680/maximum-execution-time-in-phpmyadmin?noredirect=1');
+        // expect(answerlinksRelated[0].linksRelated).toBe('/questions/356578/how-can-i-output-mysql-query-results-in-csv-format');
+        
     },20000);
 });
 

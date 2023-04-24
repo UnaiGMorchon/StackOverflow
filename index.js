@@ -9,7 +9,8 @@ const app = express();
  * @returns {string} - html
  */
 
-app.get("/", async (req, res) =>{
+app.get("/search", async (req, res) =>{
+    try{
     const query = req.query.q; // para elgir la palabra q quieres usar 
     const {title,question,answers} = await stackOverFlowController.getContent(query);
     // const data = await stackOverFlowController.getContent(query);
@@ -18,16 +19,23 @@ app.get("/", async (req, res) =>{
     <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Shared/stacks.css?v=83d4b324173a">
     <link rel="stylesheet" type="text/css" href="https://cdn.sstatic.net/Sites/stackoverflow/primary.css?v=5e2d45054eda">
         <h1>${title}</h1>
-        <div>${question}</div>
-        <div>${question.user}</div>
-        <div>${question.votes}</div>
         <div>${question.question}</div>
+        <div>${question.user}</div>
+        <div>${question.date}</div>
+        <div>${question.votes}</div>
         <div>${answers.map((answer) => `
-            <div>${answer.user}</div>
+        <div>${answer.answers}</div>
+        <div>${answer.user}</div>
             <div>${answer.votes}</div>
             <div>${answer.date}</div>
             `).join("")} </div>
     `);
+    // res.json({ title, question, answers }); // con este codigo la daria en json como api.
+}
+    catch (error){
+        // throw new Error(error);
+        res.status(500).send("ha habido un error");
+    }
 
 });
 
@@ -35,3 +43,6 @@ app.listen(3999,() =>{
     console.log("server started on port 3000");
     
 });
+
+// <div>${answer.linksLinked}</div>
+// <div>${answer.linksRelated}</div>

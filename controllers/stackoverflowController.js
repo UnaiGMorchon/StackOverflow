@@ -21,8 +21,8 @@ async function getContent(query){
     const title = parser.getQuestionTitle();
     const question = parser.getQuestion();
     const answers = parser.getAnswers()
-    const linksLinked = parser.getLinksLinked();
-    const linksRelated = parser.getLinksRelated();
+    //const linksLinked = parser.getLinksLinked();
+    //const linksRelated = parser.getLinksRelated();
 // Crea un modelo de pregunta para almacenar la información
     const questionModel = new Question({
             query,
@@ -38,10 +38,14 @@ async function getContent(query){
     answers.forEach(async (answer) => {
     const answerModel= new Answer({
         question: questionModel._id,
-        content: answer.answer,
+        content: answer.answers,
         votes: answer.votes,
         date: answer.date,
         user: answer.user,
+        // linksLinked: answer.linksLinked,
+       //  linksRelated: answer.linksRelated,
+        
+
         
     });
     await answerModel.save();
@@ -54,8 +58,8 @@ async function getContent(query){
         title,
         question,
         answers,
-        linksRelated,
-        linksLinked
+        //linksRelated,
+        // linksLinked
     }
 
 

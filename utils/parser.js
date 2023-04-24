@@ -210,7 +210,7 @@ getAnswers(){
 */
     
 getLinks(){   
-    const links = Array.from(this.document.querySelectorAll("a"));    
+    const links = Array.from(this.document.querySelectorAll("#search a"));    
    return links.map((link)=> link.href.replace(/\/$/, '')); // remove last slash
    }   
 
@@ -224,10 +224,10 @@ getLinks(){
  *
  * @method
  * @returns {string[]} Una lista de enlaces (URL) como cadenas de texto.
- */
+ 
 getLinksLinked(){   
-    const links = Array.from(this.document.querySelectorAll(".module.sidebar-linked .question-hyperlink"));    
-   return links.map((link)=> {
+    const linksLinked = Array.from(this.document.querySelectorAll(".module.sidebar-linked .question-hyperlink"));    
+   return linksLinked.map((link)=> {
     if(!link.href.includes("https")){
         return  "https://stackoverflow.com" + link.href;
     }
@@ -240,16 +240,16 @@ getLinksLinked(){
  * Si los enlaces no incluyen "https", se les añade el prefijo "https://stackoverflow.com".
  * @method
  * @returns {string[]} - Array con los enlaces relacionados.
- */   
+   
 getLinksRelated(){   
-    const links = Array.from(this.document.querySelectorAll(".module.sidebar-related .question-hyperlink"));    
-    return links.map((link)=> {
+    const linksRelated = Array.from(this.document.querySelectorAll(".module.sidebar-related .question-hyperlink"));    
+    return linksRelated.map((link)=> {
         if(!link.href.includes("https")){
             return "https://stackoverflow.com" + link.href;
         }
         return link.href;
        });
-    }
+    }*/ 
 }
 
 export default Parser;
