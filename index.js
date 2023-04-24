@@ -29,7 +29,7 @@ app.get("/", async (req, res) => {
  */
 
 app.get("/search", async (req, res) =>{
-    const query = req.query.q; // para elgir la palabra q quieres usar 
+    const query = req.query.query; // para elgir la palabra q quieres usar 
     const {title,question,answers} = await stackOverFlowController.getContent(query);
     // const data = await stackOverFlowController.getContent(query);
     // res.send (data);

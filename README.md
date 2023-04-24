@@ -1,2 +1,2 @@
 # StackOverflow
-backend de Stack Overflow, después se hare el front end.
+backend de Stack Overflow, después se hará el front end.
